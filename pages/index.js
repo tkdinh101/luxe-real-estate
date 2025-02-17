@@ -1,70 +1,128 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { MotionDiv } from "framer-motion";
+import styled from "styled-components";
+
+const HeroSection = styled.header`
+  height: 70vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+  background-image: url('/mnt/data/image.png');
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+`;
+
+const Button = styled.button`
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+const Section = styled.section`
+  padding: 40px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+`;
+
+const CardContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+`;
+
+const Card = styled.div`
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 10px;
+  width: 300px;
+`;
+
+const CardContent = styled.div`
+  padding: 20px;
+`;
+
+const Image = styled.img`
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+`;
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Hero Section */}
-      <header className="relative h-[70vh] bg-cover bg-center bg-[url('/mnt/data/image.png')]">
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-white text-center px-4">
-          <h1 className="text-4xl md:text-6xl font-bold">Luxe Real Estate</h1>
-          <p className="text-lg md:text-xl mt-2">Book your next luxury stay with ease</p>
-          <Button className="mt-4 bg-blue-500 hover:bg-blue-600 px-6 py-3">Explore Listings</Button>
-        </div>
-      </header>
-      
-      {/* Search Bar */}
-      <div className="flex justify-center mt-[-30px] px-4">
-        <Card className="p-4 shadow-lg w-full max-w-4xl bg-white">
-          <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Input placeholder="Location" className="p-2 border rounded-lg" />
-            <Input type="date" placeholder="Check-in" className="p-2 border rounded-lg" />
-            <Input type="date" placeholder="Check-out" className="p-2 border rounded-lg" />
-            <Button className="md:col-span-3 bg-blue-500 hover:bg-blue-600">Search</Button>
-          </CardContent>
-        </Card>
-      </div>
-      
-      {/* Featured Listings */}
-      <section className="py-10 px-6">
-        <h2 className="text-3xl font-bold text-center mb-6">Featured Properties</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          <Card className="overflow-hidden shadow-lg">
-            <img src="/mnt/data/image.png" alt="Urban Comfort in HTX" className="w-full h-48 object-cover" />
-            <CardContent className="p-4">
-              <h3 className="text-xl font-semibold">Urban Comfort in HTX</h3>
-              <p className="text-gray-600">Click below to view details and book.</p>
-              <Button className="mt-3 bg-blue-500 hover:bg-blue-600 w-full">View Listing</Button>
+    <div>
+      <HeroSection>
+        <Overlay>
+          <h1 style={{ fontSize: "3rem", fontWeight: "bold" }}>Luxe Real Estate</h1>
+          <p style={{ fontSize: "1.2rem", marginTop: "10px" }}>Book your next luxury stay with ease</p>
+          <Button>Explore Listings</Button>
+        </Overlay>
+      </HeroSection>
+
+      <Section>
+        <h2 style={{ fontSize: "2rem", marginBottom: "20px" }}>Featured Properties</h2>
+        <CardContainer>
+          <Card>
+            <Image src="/mnt/data/image.png" alt="Urban Comfort in HTX" />
+            <CardContent>
+              <h3>Urban Comfort in HTX</h3>
+              <p>Click below to view details and book.</p>
+              <Button>View Listing</Button>
             </CardContent>
           </Card>
-          {["Spacious Home King Bed", "Cozy Apt Near Hobby"].map((title, index) => (
-            <Card key={index} className="overflow-hidden shadow-lg">
-              <img src={`/property-${index + 2}.jpg`} alt={title} className="w-full h-48 object-cover" />
-              <CardContent className="p-4">
-                <h3 className="text-xl font-semibold">{title}</h3>
-                <p className="text-gray-600">Click below to view details and book.</p>
-                <Button className="mt-3 bg-blue-500 hover:bg-blue-600 w-full">View Listing</Button>
+          {[
+            "Spacious Home King Bed",
+            "Cozy Apt Near Hobby"
+          ].map((title, index) => (
+            <Card key={index}>
+              <Image src={`/property-${index + 2}.jpg`} alt={title} />
+              <CardContent>
+                <h3>{title}</h3>
+                <p>Click below to view details and book.</p>
+                <Button>View Listing</Button>
               </CardContent>
             </Card>
           ))}
-        </div>
-      </section>
-      
-      {/* Local Recommendations */}
-      <section className="py-10 px-6 bg-gray-200">
-        <h2 className="text-3xl font-bold text-center mb-6">Local Recommendations</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        </CardContainer>
+      </Section>
+
+      <Section style={{ background: "#f8f9fa" }}>
+        <h2 style={{ fontSize: "2rem", marginBottom: "20px" }}>Local Recommendations</h2>
+        <CardContainer>
           {["Space Center Houston", "Buffalo Bayou Park", "Moody Gardens"].map((place, index) => (
-            <Card key={index} className="p-4 shadow-md">
-              <h3 className="text-xl font-semibold">{place}</h3>
-              <p className="text-gray-600">A must-visit attraction near our properties.</p>
+            <Card key={index}>
+              <CardContent>
+                <h3>{place}</h3>
+                <p>A must-visit attraction near our properties.</p>
+              </CardContent>
             </Card>
           ))}
-        </div>
-      </section>
+        </CardContainer>
+      </Section>
     </div>
   );
 }
